@@ -7,6 +7,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 const useStyles = makeStyles({
   root: {
@@ -33,7 +38,7 @@ const Assessment = () => {
   const bull = <span className={classes.bullet}>•</span>;
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({
-    text: '',
+    text: 'test',
     options: ['A', 'B', 'C'],
     answer: 1
   });
@@ -65,8 +70,18 @@ const Assessment = () => {
             Assessment
           </Typography>
           <Typography className={classes.pos} color="textSecondary" />
-          <Typography variant="body2" component="p">
+          <Typography variant="body1" component="p">
             {currentQuestion.text}
+          </Typography>
+          <Typography variant="body2" component="p">
+            <FormGroup row>
+              {currentQuestion.options.map((o, i) => (
+                <FormControlLabel
+                  control={<Checkbox name="checkedB" color="primary" />}
+                  label="Primary"
+                />
+              ))}
+            </FormGroup>
           </Typography>
         </CardContent>
         <CardActions>
