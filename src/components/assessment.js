@@ -7,11 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import MultipleChoice from './multipleChoice';
+import MultipleSelect from './multipleSelect';
 
 const useStyles = makeStyles({
   root: {
@@ -40,7 +37,8 @@ const Assessment = () => {
   const [currentQuestion, setCurrentQuestion] = useState({
     text: 'test',
     options: ['A', 'B', 'C'],
-    answer: 1
+    answer: 1,
+    type: 'multiSelect'
   });
   const [index, setIndex] = useState(0);
   var questionIndexes = [];
@@ -62,6 +60,14 @@ const Assessment = () => {
     setOpen(false);
   };
 
+  let content = null;
+
+  if (currentQuestion.type == 'multiSelect') {
+    content = <MultipleSelect />;
+  } else {
+    console.log('==');
+    content = <MultipleChoice data={currentQuestion} />;
+  }
   return (
     <div>
       <Card className={classes.root}>
@@ -74,14 +80,16 @@ const Assessment = () => {
             {currentQuestion.text}
           </Typography>
           <Typography variant="body2" component="p">
-            <FormGroup row>
+            {<MultipleChoice data={currentQuestion} />}
+
+            {/* <FormGroup row>
               {currentQuestion.options.map((o, i) => (
                 <FormControlLabel
                   control={<Checkbox name="checkedB" color="primary" />}
                   label="Primary"
                 />
               ))}
-            </FormGroup>
+            </FormGroup> */}
           </Typography>
         </CardContent>
         <CardActions>

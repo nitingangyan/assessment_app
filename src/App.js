@@ -3,21 +3,33 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Assessment from './components/assessment';
 import Leaderboard from './components/leaderboard';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import './style.css';
 
 export default function App() {
+  const linkStyle = {
+    textDecoration: 'none',
+    color: 'rgb(255, 255, 255)',
+    fontWeight: 'bold',
+    padding: '5px',
+    margin: '5px'
+  };
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Assessment</Link>
-          </li>
-          <li>
-            <Link to="/leaderboard">Leaderboard</Link>
-          </li>
-        </ul>
+        <AppBar position="static">
+          <Toolbar>
+            <Link style={linkStyle} to="/">
+              Assessment
+            </Link>
+            <Link style={linkStyle} to="/leaderboard">
+              Leaderboard
+            </Link>
+          </Toolbar>
+        </AppBar>
+
         <Switch>
           <Route exact path="/">
             <Assessment />
