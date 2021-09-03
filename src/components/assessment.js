@@ -9,6 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import MultipleChoice from './multipleChoice';
 import MultipleSelect from './multipleSelect';
+import DragAndDrop from './dragAndDrop';
 
 const useStyles = makeStyles({
   root: {
@@ -38,7 +39,7 @@ const Assessment = () => {
     text: 'test',
     options: ['A', 'B', 'C'],
     answer: 1,
-    type: 'multiSelect'
+    type: 'dnd'
   });
   const [index, setIndex] = useState(0);
   var questionIndexes = [];
@@ -61,9 +62,10 @@ const Assessment = () => {
   };
 
   let content = null;
-
   if (currentQuestion.type == 'multiSelect') {
     content = <MultipleSelect />;
+  } else if (currentQuestion.type == 'dnd') {
+    content = <DragAndDrop />;
   } else {
     console.log('==');
     content = <MultipleChoice data={currentQuestion} />;
@@ -80,7 +82,7 @@ const Assessment = () => {
             {currentQuestion.text}
           </Typography>
           <Typography variant="body2" component="p">
-            {<MultipleChoice data={currentQuestion} />}
+            {content}
 
             {/* <FormGroup row>
               {currentQuestion.options.map((o, i) => (

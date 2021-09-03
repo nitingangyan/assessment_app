@@ -7,6 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormGroup from '@material-ui/core/FormGroup';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -79,26 +80,28 @@ const MultipleSelect = () => {
     setPersonName(value);
   };
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-mutiple-checkbox-label">Tag</InputLabel>
-      <Select
-        labelId="demo-mutiple-checkbox-label"
-        id="demo-mutiple-checkbox"
-        multiple
-        value={personName}
-        onChange={handleChange}
-        input={<Input />}
-        renderValue={selected => selected.join(', ')}
-        MenuProps={MenuProps}
-      >
-        {names.map(name => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={personName.indexOf(name) > -1} />
-            <ListItemText primary={name} />
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <FormGroup row>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-mutiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-mutiple-checkbox-label"
+          id="demo-mutiple-checkbox"
+          multiple
+          value={personName}
+          onChange={handleChange}
+          input={<Input />}
+          renderValue={selected => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {names.map(name => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={personName.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </FormGroup>
   );
 };
 
