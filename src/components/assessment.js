@@ -42,7 +42,7 @@ const randomIndex = num => {
 
 const Assessment = () => {
   const classes = useStyles();
-  let disableEle = { disabled: true };
+  const [disableEle, setDisableEle] = useState({ disabled: true });
   let feedback = {
     message: 'Correct Answer!',
     type: 'success'
@@ -79,6 +79,7 @@ const Assessment = () => {
   //
   const [open, setOpen] = React.useState(false);
   const onSubmit = () => {
+    setDisableEle({ disabled: true });
     console.log(index);
     setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
     if (index == indexes.length) {
@@ -95,18 +96,23 @@ const Assessment = () => {
     } else {
       setIndex(index + 1);
     }
-
+    setSelectedAns([]);
     setOpen(false);
   };
 
   const onChangeInput = (idx, val) => {
     let ans = [...selectedAns];
     if (!val) {
-      ans.remove(idx);
+      ans = ans.filter(item => item !== idx);
     } else {
       ans.push(idx);
     }
     setSelectedAns(ans);
+    if (ans.length) {
+      setDisableEle({ disabled: false });
+    } else {
+      setDisableEle({ disabled: true });
+    }
     console.log(idx, val, selectedAns);
   };
 
