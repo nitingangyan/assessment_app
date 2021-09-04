@@ -45,19 +45,19 @@ const Assessment = () => {
   const bull = <span className={classes.bullet}>•</span>;
   const [questions, setQuestions] = useState([
     {
-      text: 'Question 1',
+      text: 'Question',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'MMCQ'
     },
     {
-      text: 'Question 2',
+      text: 'Question',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'DropDown'
     },
     {
-      text: 'Question 3',
+      text: 'Question',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'DND'
@@ -65,17 +65,18 @@ const Assessment = () => {
   ]);
   const [indexes, setIndexes] = useState(randomIndex(questions.length));
   console.log(indexes);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[indexes[0]]);
   const [index, setIndex] = useState(0);
-
+  const [currentQuestion, setCurrentQuestion] = useState(
+    questions[indexes[index]]
+  );
+  //
   const [open, setOpen] = React.useState(false);
-
   const onSubmit = () => {
-    if (index == indexes.length - 1) {
+    console.log(index);
+    if (index == indexes.length) {
     } else {
-      setIndex(index + 1);
+      setOpen(true);
     }
-    setOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -84,7 +85,7 @@ const Assessment = () => {
     }
     if (index == indexes.length - 1) {
     } else {
-      setCurrentQuestion(questions[indexes[index]]);
+      setIndex(index + 1, setCurrentQuestion(questions[indexes[index]]));
     }
 
     setOpen(false);
@@ -92,19 +93,19 @@ const Assessment = () => {
 
   let content = null;
   if (currentQuestion.type == 'DropDown') {
-    content = <MultipleSelect />;
+    content = <MultipleSelect questionNo={index + 1} />;
   } else if (currentQuestion.type == 'DND') {
-    content = <DragAndDrop />;
+    content = <DragAndDrop questionNo={index + 1} />;
   } else {
     console.log('==');
-    content = <MultipleChoice data={currentQuestion} />;
+    content = <MultipleChoice data={currentQuestion} questionNo={index + 1} />;
   }
   return (
     <div>
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Assessment
+            Question ({index + 1} / {indexes.length})
           </Typography>
           <Typography className={classes.pos} color="textSecondary" />
           <Typography variant="body1" component="p">
