@@ -82,7 +82,7 @@ const Assessment = () => {
     setDisableEle({ disabled: true });
     console.log(index);
     setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
-    if (selectedAns == setIndex.answer) {
+    if (selectedAns == currentQuestion.answer) {
       setFeedback({
         message: 'Correct Answer!',
         type: 'success'
