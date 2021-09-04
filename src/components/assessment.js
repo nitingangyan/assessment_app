@@ -75,7 +75,7 @@ const Assessment = () => {
     questions[indexes[index]]
   );
   const [submitedData, setSubmitedData] = useState({});
-  const [selectedAns, setSelectedAns] = useState({});
+  const [selectedAns, setSelectedAns] = useState([]);
   //
   const [open, setOpen] = React.useState(false);
   const onSubmit = () => {
@@ -100,12 +100,14 @@ const Assessment = () => {
   };
 
   const onChangeInput = (idx, val) => {
+    let ans = [...selectedAns];
     if (!val) {
-      selectedAns.remove(idx);
+      ans.remove(idx);
     } else {
-      selectedAns.push(idx);
+      ans.push(idx);
     }
-    console.log(idx, val);
+    setSelectedAns(ans);
+    console.log(idx, val, selectedAns);
   };
 
   let content = null;
