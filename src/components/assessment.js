@@ -107,7 +107,7 @@ const Assessment = () => {
     } else {
       setDisableEle({ disabled: true });
     }
-    console.log(idx, val, selectedAns);
+    console.log(val, selectedAns);
   };
 
   let content = null;
