@@ -8,7 +8,13 @@ const MultipleChoice = props => {
     <div>
       {props.data.options.map((o, i) => (
         <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
+          control={
+            <Checkbox
+              name="checkedB"
+              color="primary"
+              onChange={e => props.onChangeInput(i + 1, e.target.checked)}
+            />
+          }
           label={o}
           key={i}
         />

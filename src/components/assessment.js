@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -42,7 +42,12 @@ const randomIndex = num => {
 
 const Assessment = () => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  let disableEle = { disabled: true };
+  let feedback = {
+    message: 'Correct Answer!',
+    type: 'success'
+  };
+
   const [questions, setQuestions] = useState([
     {
       text: 'Question',
@@ -85,21 +90,28 @@ const Assessment = () => {
     }
     if (index == indexes.length - 1) {
     } else {
-      setIndex(index + 1, setCurrentQuestion(questions[indexes[index]]));
+      setIndex(index + 1);
     }
 
     setOpen(false);
   };
 
+  const onChangeInput = (idx, val) => {};
+
   let content = null;
   if (currentQuestion.type == 'DropDown') {
-    content = <MultipleSelect questionNo={index + 1} />;
+    content = <MultipleSelect onChangeInput={onChangeInput} />;
   } else if (currentQuestion.type == 'DND') {
-    content = <DragAndDrop questionNo={index + 1} />;
+    content = <DragAndDrop onChangeInput={onChangeInput} />;
   } else {
     console.log('==');
-    content = <MultipleChoice data={currentQuestion} questionNo={index + 1} />;
+    content = (
+      <MultipleChoice data={currentQuestion} onChangeInput={onChangeInput} />
+    );
   }
+  useEffect(() => {
+    setCurrentQuestion(questions[indexes[index]]);
+  }, [index]);
   return (
     <div>
       <Card className={classes.root}>
@@ -113,26 +125,22 @@ const Assessment = () => {
           </Typography>
           <Typography variant="body2" component="p">
             {content}
-
-            {/* <FormGroup row>
-              {currentQuestion.options.map((o, i) => (
-                <FormControlLabel
-                  control={<Checkbox name="checkedB" color="primary" />}
-                  label="Primary"
-                />
-              ))}
-            </FormGroup> */}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" color="primary" onClick={onSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onSubmit}
+            {...disableEle}
+          >
             Submit
           </Button>
         </CardActions>
       </Card>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          This is a success message!
+        <Alert onClose={handleClose} severity={feedback.type}>
+          {feedback.message}
         </Alert>
       </Snackbar>
     </div>
