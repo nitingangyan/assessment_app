@@ -5,14 +5,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const MultipleChoice = props => {
   return (
-    <FormGroup row>
+    <div>
       {props.data.options.map((o, i) => (
         <FormControlLabel
           control={<Checkbox name="checkedB" color="primary" />}
           label={o}
+          key={i}
         />
       ))}
-    </FormGroup>
+    </div>
   );
 };
 

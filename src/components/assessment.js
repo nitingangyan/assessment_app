@@ -45,25 +45,26 @@ const Assessment = () => {
   const bull = <span className={classes.bullet}>•</span>;
   const [questions, setQuestions] = useState([
     {
-      text: 'test',
+      text: 'Question 1',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'MMCQ'
     },
     {
-      text: 'test',
+      text: 'Question 2',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'DropDown'
     },
     {
-      text: 'test',
+      text: 'Question 3',
       options: ['A', 'B', 'C'],
       answer: 1,
       type: 'DND'
     }
   ]);
   const [indexes, setIndexes] = useState(randomIndex(questions.length));
+  console.log(indexes);
   const [currentQuestion, setCurrentQuestion] = useState(questions[indexes[0]]);
   const [index, setIndex] = useState(0);
 
@@ -82,9 +83,9 @@ const Assessment = () => {
   };
 
   let content = null;
-  if (currentQuestion.type == 'multiSelect') {
+  if (currentQuestion.type == 'DropDown') {
     content = <MultipleSelect />;
-  } else if (currentQuestion.type == 'dnd') {
+  } else if (currentQuestion.type == 'DND') {
     content = <DragAndDrop />;
   } else {
     console.log('==');
