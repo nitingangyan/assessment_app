@@ -13,8 +13,8 @@ const MultipleChoice = props => {
       ans.push(idx);
     }
 
-    setSelectedAns(val);
-    let finalVal = val.sort().join(',');
+    setSelectedAns(ans);
+    let finalVal = ans.sort().join(',');
     props.onChangeInput(finalVal);
   };
   return (
