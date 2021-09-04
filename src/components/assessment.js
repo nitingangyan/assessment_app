@@ -31,22 +31,42 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+const randomIndex = num => {
+  var indexes = [];
+  while (indexes.length < num) {
+    var r = Math.floor(Math.random() * num);
+    if (indexes.indexOf(r) === -1) indexes.push(r);
+  }
+  return indexes;
+};
+
 const Assessment = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState({
-    text: 'test',
-    options: ['A', 'B', 'C'],
-    answer: 1,
-    type: 'dnd'
-  });
+  const [questions, setQuestions] = useState([
+    {
+      text: 'test',
+      options: ['A', 'B', 'C'],
+      answer: 1,
+      type: 'MMCQ'
+    },
+    {
+      text: 'test',
+      options: ['A', 'B', 'C'],
+      answer: 1,
+      type: 'DropDown'
+    },
+    {
+      text: 'test',
+      options: ['A', 'B', 'C'],
+      answer: 1,
+      type: 'DND'
+    }
+  ]);
+  const [indexes, setIndexes] = useState(randomIndex(questions.length));
+  const [currentQuestion, setCurrentQuestion] = useState(questions[indexes[0]]);
   const [index, setIndex] = useState(0);
-  var questionIndexes = [];
-  while (questionIndexes.length < questions.length) {
-    var r = Math.floor(Math.random() * questions.length);
-    if (questionIndexes.indexOf(r) === -1) questionIndexes.push(r);
-  }
+
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
