@@ -43,28 +43,28 @@ const randomIndex = num => {
 const Assessment = () => {
   const classes = useStyles();
   const [disableEle, setDisableEle] = useState({ disabled: true });
-  let feedback = {
+  const [feedback, setFeedback] = useState({
     message: 'Correct Answer!',
     type: 'success'
-  };
+  });
 
   const [questions, setQuestions] = useState([
     {
       text: 'Question',
       options: ['A', 'B', 'C'],
-      answer: 1,
+      answer: '1',
       type: 'MMCQ'
     },
     {
       text: 'Question',
       options: ['A', 'B', 'C'],
-      answer: 1,
+      answer: '1',
       type: 'DropDown'
     },
     {
       text: 'Question',
       options: ['A', 'B', 'C'],
-      answer: 1,
+      answer: '1',
       type: 'DND'
     }
   ]);
@@ -76,12 +76,23 @@ const Assessment = () => {
   );
   const [submitedData, setSubmitedData] = useState({});
   const [selectedAns, setSelectedAns] = useState(null);
-  //
   const [open, setOpen] = React.useState(false);
+
   const onSubmit = () => {
     setDisableEle({ disabled: true });
     console.log(index);
     setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
+    if (selectedAns == setIndex.answer) {
+      setFeedback({
+        message: 'Correct Answer!',
+        type: 'success'
+      });
+    } else {
+      setFeedback({
+        message: 'Incorrect Answer!',
+        type: 'error'
+      });
+    }
     if (index == indexes.length) {
     } else {
       setOpen(true);
