@@ -101,12 +101,6 @@ const Assessment = () => {
   };
 
   const onChangeInput = val => {
-    let ans = [...selectedAns];
-    if (!val) {
-      ans = ans.filter(item => item !== idx);
-    } else {
-      ans.push(idx);
-    }
     setSelectedAns(val);
     if (val) {
       setDisableEle({ disabled: false });
