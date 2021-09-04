@@ -70,13 +70,21 @@ const Assessment = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  const onSubmit = () => {
+    if (index == indexes.length - 1) {
+    } else {
+      setIndex(index + 1);
+    }
     setOpen(true);
   };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
+    }
+    if (index == indexes.length - 1) {
+    } else {
+      setCurrentQuestion(questions[indexes[index]]);
     }
 
     setOpen(false);
@@ -116,7 +124,7 @@ const Assessment = () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" color="primary" onClick={handleClick}>
+          <Button variant="contained" color="primary" onClick={onSubmit}>
             Submit
           </Button>
         </CardActions>
