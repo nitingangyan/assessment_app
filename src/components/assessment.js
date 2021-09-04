@@ -74,10 +74,13 @@ const Assessment = () => {
   const [currentQuestion, setCurrentQuestion] = useState(
     questions[indexes[index]]
   );
+  const [submitedData, setSubmitedData] = useState({});
+  const [selectedAns, setSelectedAns] = useState({});
   //
   const [open, setOpen] = React.useState(false);
   const onSubmit = () => {
     console.log(index);
+    setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
     if (index == indexes.length) {
     } else {
       setOpen(true);
@@ -96,7 +99,14 @@ const Assessment = () => {
     setOpen(false);
   };
 
-  const onChangeInput = (idx, val) => {};
+  const onChangeInput = (idx, val) => {
+    if (!val) {
+      selectedAns.remove(idx);
+    } else {
+      selectedAns.push(idx);
+    }
+    console.log(idx, val);
+  };
 
   let content = null;
   if (currentQuestion.type == 'DropDown') {
