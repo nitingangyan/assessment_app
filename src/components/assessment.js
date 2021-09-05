@@ -69,7 +69,7 @@ const Assessment = () => {
       text: 'Drag and Drop Question',
       dragOptions: ['A', 'B', 'C'],
       dropOptions: ['A', 'B', 'C'],
-      answer: '1',
+      answer: '1,2,3',
       type: 'DND'
     }
   ]);

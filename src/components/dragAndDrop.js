@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DragAndDrop = props => {
+  console.log('--------');
   const classes = useStyles();
   const [selectedValue, setSelectedValue] = useState(
     new Array(props.data.dropOptions.length)
@@ -28,11 +29,15 @@ const DragAndDrop = props => {
   };
 
   const drop = e => {
+    let ans = [...selectedValue];
     let ev = e.target;
     e.preventDefault();
     var data = e.dataTransfer.getData('text');
     ev.appendChild(document.getElementById(data));
     ev.style.pointerEvents = 'none';
+    ans[parseInt(ev.id.split('_')[1])] = data.split('_')[1];
+    setSelectedValue(ans);
+    props.onChangeInput(ans.join(','));
   };
   let clsN = {
     width: '20px',
@@ -52,7 +57,8 @@ const DragAndDrop = props => {
     marginLeft: '-5.5px',
     marginTop: '-5.5px',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    cursor: 'move'
   };
   return (
     <div style={{ display: 'flex' }}>
@@ -77,7 +83,7 @@ const DragAndDrop = props => {
         {props.data.dropOptions.map((item, i) => (
           <ListItem>
             <div
-              id={'drop_' + (i + 1)}
+              id={'drop_' + i}
               style={clsN}
               onDrop={e => drop(e)}
               onDragOver={e => allowDrop(e)}
