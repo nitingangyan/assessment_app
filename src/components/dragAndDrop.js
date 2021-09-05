@@ -42,7 +42,8 @@ const DragAndDrop = props => {
     height: '20px',
     borderRadius: '50%',
     padding: '4px',
-    border: '1px solid #aaaaaa'
+    border: '1px solid #aaaaaa',
+    textAlign: 'center'
   };
   let clsNOpt = {
     width: '20px',
@@ -52,10 +53,11 @@ const DragAndDrop = props => {
     border: '1px solid #aaaaaa',
     background: '#aaaaaa',
     marginLeft: '-5.5px',
-    marginTop: '-5.5px'
+    marginTop: '-5.5px',
+    textAlign: 'center'
   };
   return (
-    <div>
+    <div style={{ display: 'flex' }}>
       <List className={classes.root}>
         {props.data.dragOptions.map((item, i) => (
           <ListItem>
@@ -78,7 +80,7 @@ const DragAndDrop = props => {
           <ListItem>
             <div
               id={'drop' + (i + 1)}
-              style={clsNOpt}
+              style={clsN}
               onDrop={e => drop(e)}
               onDragOver={e => allowDrop(e)}
             />
