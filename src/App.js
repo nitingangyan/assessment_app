@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import Assessment from './components/assessment';
 import Leaderboard from './components/leaderboard';
 import Login from './components/login';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 
 import './style.css';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1)
+    }
+  }
+}));
+
 export default function App() {
+  const classes = useStyles();
   const linkStyle = {
     textDecoration: 'none',
     color: 'rgb(255, 255, 255)',
@@ -31,7 +42,13 @@ export default function App() {
           <Link style={linkStyle} to="/leaderboard">
             Leaderboard
           </Link>
-          <span>{username}</span>
+          <div style={{ flexGrow: 1 }} />
+          <Button
+            variant="outlined"
+            style={{ borderColor: '#ffffff', color: '#ffffff' }}
+          >
+            {username}
+          </Button>
           <Link style={linkStyle} to="/login">
             Logout
           </Link>
@@ -43,7 +60,7 @@ export default function App() {
 
   return (
     <Router>
-      <div>
+      <div className={classes.root}>
         <AppBar position="static">{lnk}</AppBar>
 
         <Switch>

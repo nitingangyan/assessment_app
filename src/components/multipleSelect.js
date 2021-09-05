@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300
+    maxWidth: 300,
+    display: 'block'
   },
   chips: {
     display: 'flex',
@@ -64,7 +65,7 @@ const MultipleSelect = props => {
   };
 
   return (
-    <FormGroup row>
+    <FormGroup row style={{ display: 'block' }}>
       {props.data.options.map((item, i) => (
         <div ksy={i}>
           <FormControl className={classes.formControl}>
@@ -72,7 +73,10 @@ const MultipleSelect = props => {
               {i + 1 + '. '}
               {item.text}
             </label>
-            <Select onChange={e => handleChange(e, i)}>
+            <Select
+              onChange={e => handleChange(e, i)}
+              style={{ width: '200px', marginLeft: '45px;' }}
+            >
               {item.options.map((opt, j) => (
                 <MenuItem key={i + '_' + j} value={opt}>
                   {opt}

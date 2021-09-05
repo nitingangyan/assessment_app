@@ -58,7 +58,7 @@ const Assessment = () => {
     {
       text: 'Multi Choice Question',
       options: ['A', 'B', 'C'],
-      answer: '1,3',
+      answer: '1,2,3',
       type: 'MMCQ'
     },
     {
