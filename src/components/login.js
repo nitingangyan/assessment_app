@@ -17,19 +17,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = () => {
+const Login = props => {
   localStorage.setItem('username', '');
+  props.setUsername('');
   const classes = useStyles();
   let history = useHistory();
   const [user, setUser] = useState('');
+  const [errorMsg, setErrorMsg] = useState({
+    error: false,
+    helperText: ''
+  });
   const onSubmit = () => {
     localStorage.setItem('username', user);
     if (user) {
+      props.setUsername(user);
       history.push('/');
     }
   };
   const handleBlur = e => {
+    let val = e.target.value;
     setUser(e.target.value);
+    if (!val) {
+      setErrorMsg({
+        error: true,
+        helperText: 'Username is required'
+      });
+    } else {
+      setErrorMsg({
+        error: false,
+        helperText: ''
+      });
+    }
   };
   return (
     <div>
@@ -44,12 +62,11 @@ const Login = () => {
             <form className={classes.root} noValidate autoComplete="off">
               <div>
                 <TextField
-                  error
                   id="standard-error-helper-text"
                   label="Username"
-                  defaultValue="Hello World"
-                  helperText="Incorrect entry."
+                  defaultValue=""
                   onBlur={handleBlur}
+                  {...errorMsg}
                 />
               </div>
             </form>
