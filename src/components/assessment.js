@@ -27,6 +27,7 @@ const useStyles = makeStyles({
     marginBottom: 12
   }
 });
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
