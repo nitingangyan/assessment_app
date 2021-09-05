@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +13,10 @@ const useStyles = makeStyles(theme => ({
 
 const DragAndDrop = props => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  const [selectedValue, setSelectedValue] = useState(
+    new Array(props.data.dropOptions.length)
+  );
+
   const allowDrop = e => {
     // let ev = e.target;
     e.preventDefault();
@@ -33,7 +31,6 @@ const DragAndDrop = props => {
     let ev = e.target;
     e.preventDefault();
     var data = e.dataTransfer.getData('text');
-    console.log(data);
     ev.appendChild(document.getElementById(data));
     ev.style.pointerEvents = 'none';
   };
@@ -54,17 +51,18 @@ const DragAndDrop = props => {
     background: '#aaaaaa',
     marginLeft: '-5.5px',
     marginTop: '-5.5px',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   };
   return (
     <div style={{ display: 'flex' }}>
       <List className={classes.root}>
         {props.data.dragOptions.map((item, i) => (
           <ListItem>
-            <ListItemText secondary={item} />
+            <ListItemText secondary={i + 1 + '. ' + item} />
             <div style={clsN}>
               <div
-                id={'drag' + (i + 1)}
+                id={'drag_' + (i + 1)}
                 style={clsNOpt}
                 draggable="true"
                 onDragStart={e => drag(e)}
@@ -79,49 +77,17 @@ const DragAndDrop = props => {
         {props.data.dropOptions.map((item, i) => (
           <ListItem>
             <div
-              id={'drop' + (i + 1)}
+              id={'drop_' + (i + 1)}
               style={clsN}
               onDrop={e => drop(e)}
               onDragOver={e => allowDrop(e)}
             />
-            <ListItemText secondary={item} />
+            <ListItemText secondary={item} style={{ marginLeft: '10px' }} />
           </ListItem>
         ))}
       </List>
-
-      {/* <div
-        id="div2"
-        style={clsN}
-        onDrop={e => drop(e)}
-        onDragOver={e => allowDrop(e)}
-      />
-
-      <br /> */}
-      {/* <img
-        id="drag1"
-        src="img_logo.gif"
-        draggable="true"
-        onDragStart={e => drag(e)}
-        width="336"
-        height="69"
-      />
-      <img
-        id="drag2"
-        src="img_logo.gif"
-        draggable="true"
-        onDragStart={e => drag(e)}
-        width="336"
-        height="69"
-      /> */}
     </div>
   );
-  // }
-
-  // ...
 };
-// const DragAndDrop = () => {
-//   setDND();
-
-// };
 
 export default DragAndDrop;
