@@ -1,37 +1,26 @@
 import React from 'react';
-// import $ from 'jquery';
-// function setDND() {
-//   $('.draggable').draggable({
-//     //cursor: 'move'
-//   });
-//   $('.droppable').droppable({
-//     drop: function(event, ui) {
-//       $(this).addClass('ui-state-highlight');
-//       ui.draggable.position({
-//         of: $(this),
-//         my: 'left top',
-//         at: 'left+6 top+6'
-//       });
-//       $('.draggable')
-//         .each(function(i) {
-//           $(this).data('value', i + 1);
-//         })
-//         .filter(':first')
-//         .trigger('listData');
-//     }
-//   });
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
-//   $('.draggable').on('listData', function() {
-//     $('.droppable').each(function() {
-//       console.log($(this).text() + ' - ' + $(this).data('value'));
-//     });
-//   });
-// }
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '40%',
+    backgroundColor: theme.palette.background.paper
+  }
+}));
 
-const DragAndDrop = () => {
-  // componentDidMount() {
+const DragAndDrop = props => {
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
   const allowDrop = e => {
-    let ev = e.target;
+    // let ev = e.target;
     e.preventDefault();
   };
 
@@ -48,30 +37,65 @@ const DragAndDrop = () => {
     ev.appendChild(document.getElementById(data));
     ev.style.pointerEvents = 'none';
   };
-  // }
-  // render() {
   let clsN = {
-    width: '350px',
-    height: '70px',
-    padding: '10px',
+    width: '20px',
+    height: '20px',
+    borderRadius: '50%',
+    padding: '4px',
     border: '1px solid #aaaaaa'
+  };
+  let clsNOpt = {
+    width: '20px',
+    height: '20px',
+    borderRadius: '50%',
+    padding: '4px',
+    border: '1px solid #aaaaaa',
+    background: '#aaaaaa',
+    marginLeft: '-5.5px',
+    marginTop: '-5.5px'
   };
   return (
     <div>
-      <div
-        id="div1"
-        style={clsN}
-        onDrop={e => drop(e)}
-        onDragOver={e => allowDrop(e)}
-      />
-      <div
+      <List className={classes.root}>
+        {props.data.dragOptions.map((item, i) => (
+          <ListItem>
+            <ListItemText secondary={item} />
+            <div style={clsN}>
+              <div
+                id={'drag' + (i + 1)}
+                style={clsNOpt}
+                draggable="true"
+                onDragStart={e => drag(e)}
+              >
+                {i + 1}
+              </div>
+            </div>
+          </ListItem>
+        ))}
+      </List>
+      <List className={classes.root}>
+        {props.data.dropOptions.map((item, i) => (
+          <ListItem>
+            <div
+              id={'drop' + (i + 1)}
+              style={clsNOpt}
+              onDrop={e => drop(e)}
+              onDragOver={e => allowDrop(e)}
+            />
+            <ListItemText secondary={item} />
+          </ListItem>
+        ))}
+      </List>
+
+      {/* <div
         id="div2"
         style={clsN}
         onDrop={e => drop(e)}
         onDragOver={e => allowDrop(e)}
       />
-      <br />
-      <img
+
+      <br /> */}
+      {/* <img
         id="drag1"
         src="img_logo.gif"
         draggable="true"
@@ -86,7 +110,7 @@ const DragAndDrop = () => {
         onDragStart={e => drag(e)}
         width="336"
         height="69"
-      />
+      /> */}
     </div>
   );
   // }

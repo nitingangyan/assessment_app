@@ -132,7 +132,9 @@ const Assessment = () => {
       <MultipleSelect data={currentQuestion} onChangeInput={onChangeInput} />
     );
   } else if (currentQuestion.type == 'DND') {
-    content = <DragAndDrop onChangeInput={onChangeInput} />;
+    content = (
+      <DragAndDrop data={currentQuestion} onChangeInput={onChangeInput} />
+    );
   } else {
     console.log('==');
     content = (
