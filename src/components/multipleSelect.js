@@ -56,7 +56,8 @@ const MultipleSelect = props => {
 
   const handleChange = (event, i) => {
     let vals = [...selectedValue];
-    vals[i] = event.target.value;
+
+    vals[i] = props.data.options[i].options.indexOf(event.target.value) + 1;
     setSelectedValue(vals);
     props.onChangeInput(vals.join(','));
     // setPersonName(event.target.value);
