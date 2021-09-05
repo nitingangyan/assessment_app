@@ -1,3 +1,9 @@
-h1, p {
+h1,
+p {
   font-family: Lato;
+}
+
+.disable-element {
+  pointer-events: none;
+  opacity: 0.5;
 }

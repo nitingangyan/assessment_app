@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -42,8 +43,10 @@ const randomIndex = num => {
 };
 
 const Assessment = () => {
+  let history = useHistory();
   const classes = useStyles();
   const [disableEle, setDisableEle] = useState({ disabled: true });
+  const [disableQuestion, setDisableQuestion] = useState('');
   const [feedback, setFeedback] = useState({
     message: 'Correct Answer!',
     type: 'success'
@@ -86,6 +89,7 @@ const Assessment = () => {
 
   const onSubmit = () => {
     setDisableEle({ disabled: true });
+    setDisableQuestion('disable-element');
     console.log(index);
     setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
     if (selectedAns == currentQuestion.answer) {
@@ -109,7 +113,9 @@ const Assessment = () => {
     if (reason === 'clickaway') {
       return;
     }
+    setDisableQuestion('');
     if (index == indexes.length - 1) {
+      history.push('/leaderboard');
     } else {
       setIndex(index + 1);
     }
@@ -157,7 +163,7 @@ const Assessment = () => {
             {currentQuestion.text}
           </Typography>
           <Typography variant="body2" component="p">
-            {content}
+            <div className={disableQuestion}>{content}</div>
           </Typography>
         </CardContent>
         <CardActions>
