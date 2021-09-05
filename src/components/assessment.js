@@ -57,8 +57,12 @@ const Assessment = () => {
     },
     {
       text: 'Question',
-      options: ['A', 'B', 'C'],
-      answer: '1',
+      options: [
+        { text: 'A', options: ['A', 'B', 'C'] },
+        { text: 'B', options: ['A', 'B', 'C'] },
+        { text: 'C', options: ['A', 'B', 'C'] }
+      ],
+      answer: '1,2,3',
       type: 'DropDown'
     },
     {
@@ -123,7 +127,9 @@ const Assessment = () => {
 
   let content = null;
   if (currentQuestion.type == 'DropDown') {
-    content = <MultipleSelect onChangeInput={onChangeInput} />;
+    content = (
+      <MultipleSelect data={currentQuestion} onChangeInput={onChangeInput} />
+    );
   } else if (currentQuestion.type == 'DND') {
     content = <DragAndDrop onChangeInput={onChangeInput} />;
   } else {
