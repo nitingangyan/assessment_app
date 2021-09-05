@@ -50,34 +50,28 @@ function getStyles(name, personName, theme) {
 const MultipleSelect = props => {
   const classes = useStyles();
   const theme = useTheme();
-  const [selectedValue, setSelectedValue] = React.useState('A');
+  const [selectedValue, setSelectedValue] = useState(
+    new Array(props.data.options.length)
+  );
 
-  const handleChange = event => {
-    setPersonName(event.target.value);
+  const handleChange = (event, i) => {
+    let vals = [...selectedValue];
+    vals[i] = event.target.value;
+    setSelectedValue(vals);
+    props.onChangeInput(vals.join(','));
+    // setPersonName(event.target.value);
   };
 
-  const handleChangeMultiple = event => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setPersonName(value);
-  };
   return (
     <FormGroup row>
       <FormControl className={classes.formControl}>
         {props.data.options.map((item, i) => (
           <div ksy={i}>
-            <label>{item.text}</label>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedValue}
-              onChange={handleChange}
-            >
+            <label style={{ marginRight: '10px' }}>
+              {i + 1 + '. '}
+              {item.text}
+            </label>
+            <Select onChange={e => handleChange(e, i)}>
               {item.options.map((opt, j) => (
                 <MenuItem key={i + '_' + j} value={opt}>
                   {opt}
