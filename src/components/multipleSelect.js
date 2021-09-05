@@ -64,9 +64,9 @@ const MultipleSelect = props => {
 
   return (
     <FormGroup row>
-      <FormControl className={classes.formControl}>
-        {props.data.options.map((item, i) => (
-          <div ksy={i}>
+      {props.data.options.map((item, i) => (
+        <div ksy={i}>
+          <FormControl className={classes.formControl}>
             <label style={{ marginRight: '10px' }}>
               {i + 1 + '. '}
               {item.text}
@@ -78,9 +78,9 @@ const MultipleSelect = props => {
                 </MenuItem>
               ))}
             </Select>
-          </div>
-        ))}
-      </FormControl>
+          </FormControl>
+        </div>
+      ))}
     </FormGroup>
   );
 };
