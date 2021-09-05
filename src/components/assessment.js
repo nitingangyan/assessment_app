@@ -45,8 +45,10 @@ const randomIndex = num => {
 const Assessment = () => {
   let history = useHistory();
   const classes = useStyles();
+  localStorage.setItem('score', 0);
   const [disableEle, setDisableEle] = useState({ disabled: true });
   const [disableQuestion, setDisableQuestion] = useState('');
+  const [correctAnsCount, setCorrectAnsCount] = useState(0);
   const [feedback, setFeedback] = useState({
     message: 'Correct Answer!',
     type: 'success'
@@ -93,6 +95,7 @@ const Assessment = () => {
     console.log(index);
     setSubmitedData({ ...submitedData, [indexes[index]]: selectedAns });
     if (selectedAns == currentQuestion.answer) {
+      setCorrectAnsCount(correctAnsCount + 1);
       setFeedback({
         message: 'Correct Answer!',
         type: 'success'
@@ -115,6 +118,8 @@ const Assessment = () => {
     }
     setDisableQuestion('');
     if (index == indexes.length - 1) {
+      let score = (correctAnsCount * 100) / questions.length;
+      localStorage.setItem('score', score);
       history.push('/leaderboard');
     } else {
       setIndex(index + 1);
