@@ -149,6 +149,10 @@ const Assessment = () => {
     );
   }
   useEffect(() => {
+    let username = localStorage.getItem('username');
+    if (!username) {
+      history.push('/login');
+    }
     setCurrentQuestion(questions[indexes[index]]);
   }, [index]);
   return (

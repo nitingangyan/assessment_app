@@ -39,37 +39,17 @@ const DragAndDrop = props => {
     setSelectedValue(ans);
     props.onChangeInput(ans.join(','));
   };
-  let clsN = {
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-    padding: '4px',
-    border: '1px solid #aaaaaa',
-    textAlign: 'center'
-  };
-  let clsNOpt = {
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-    padding: '4px',
-    border: '1px solid #aaaaaa',
-    background: '#aaaaaa',
-    marginLeft: '-5.5px',
-    marginTop: '-5.5px',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    cursor: 'move'
-  };
+
   return (
     <div style={{ display: 'flex' }}>
       <List className={classes.root}>
         {props.data.dragOptions.map((item, i) => (
           <ListItem>
             <ListItemText secondary={i + 1 + '. ' + item} />
-            <div style={clsN}>
+            <div className="drag-circle-parent">
               <div
                 id={'drag_' + (i + 1)}
-                style={clsNOpt}
+                className="drag-circle"
                 draggable="true"
                 onDragStart={e => drag(e)}
               >
@@ -84,7 +64,7 @@ const DragAndDrop = props => {
           <ListItem>
             <div
               id={'drop_' + i}
-              style={clsN}
+              className="drag-circle-parent"
               onDrop={e => drop(e)}
               onDragOver={e => allowDrop(e)}
             />

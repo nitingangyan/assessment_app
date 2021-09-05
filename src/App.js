@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Assessment from './components/assessment';
 import Leaderboard from './components/leaderboard';
+import Login from './components/login';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -16,6 +17,9 @@ export default function App() {
     padding: '5px',
     margin: '5px'
   };
+  let user = localStorage.getItem('username');
+  const [username, setUsername] = useState(user);
+
   return (
     <Router>
       <div>
@@ -27,12 +31,16 @@ export default function App() {
             <Link style={linkStyle} to="/leaderboard">
               Leaderboard
             </Link>
+            <span>{username}</span>
           </Toolbar>
         </AppBar>
 
         <Switch>
           <Route exact path="/">
             <Assessment />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
           <Route exact path="/leaderboard">
             <Leaderboard />

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,6 +39,14 @@ const rows = [
 
 const Leaderboard = () => {
   const classes = useStyles();
+  let history = useHistory();
+
+  useEffect(() => {
+    let username = localStorage.getItem('username');
+    if (!username) {
+      history.push('/login');
+    }
+  }, []);
 
   return (
     <TableContainer component={Paper}>
