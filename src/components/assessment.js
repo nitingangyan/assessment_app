@@ -50,13 +50,13 @@ const Assessment = () => {
 
   const [questions, setQuestions] = useState([
     {
-      text: 'Question',
+      text: 'Multi Choice Question',
       options: ['A', 'B', 'C'],
-      answer: '1',
+      answer: '1,3',
       type: 'MMCQ'
     },
     {
-      text: 'Question',
+      text: 'Multi Select Question',
       options: [
         { text: 'A', options: ['A', 'B', 'C'] },
         { text: 'B', options: ['A', 'B', 'C'] },
@@ -66,8 +66,9 @@ const Assessment = () => {
       type: 'DropDown'
     },
     {
-      text: 'Question',
-      options: ['A', 'B', 'C'],
+      text: 'Drag and Drop Question',
+      dragOptions: ['A', 'B', 'C'],
+      dropOptions: ['A', 'B', 'C'],
       answer: '1',
       type: 'DND'
     }
