@@ -31,9 +31,10 @@ export default function App() {
           <Link style={linkStyle} to="/leaderboard">
             Leaderboard
           </Link>
+          <span>{username}</span>
           <Link style={linkStyle} to="/login">
             Logout
-          </Link>{' '}
+          </Link>
         </Toolbar>
       );
     }
