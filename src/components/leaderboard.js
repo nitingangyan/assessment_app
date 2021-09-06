@@ -33,10 +33,7 @@ const Leaderboard = () => {
       history.push('/login');
     }
     const db = getDatabase();
-    const mostViewedPosts = query(
-      ref(db, 'assessment'),
-      orderByChild('-score')
-    );
+    const mostViewedPosts = query(ref(db, 'assessment'), orderByChild('score'));
     let arr = [];
 
     onValue(
