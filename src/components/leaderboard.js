@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,16 +8,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  onValue
+} from 'firebase/database';
 
 const useStyles = makeStyles({
   table: {
@@ -25,27 +22,39 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9)
-];
-
 const Leaderboard = () => {
   const classes = useStyles();
   let history = useHistory();
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     let username = localStorage.getItem('username');
     if (!username) {
       history.push('/login');
     }
+    const db = getDatabase();
+    const mostViewedPosts = query(
+      ref(db, 'assessment'),
+      orderByChild('-score')
+    );
+    let arr = [];
+
+    onValue(
+      mostViewedPosts,
+      snapshot => {
+        snapshot.forEach(childSnapshot => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          arr.push(childData);
+          // ...
+        });
+        setUsers(arr);
+      },
+      {
+        onlyOnce: true
+      }
+    );
+    console.log(mostViewedPosts);
   }, []);
 
   return (
@@ -59,11 +68,11 @@ const Leaderboard = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.calories}</TableCell>
-              <TableCell>{row.fat}</TableCell>
+          {users.map((user, i) => (
+            <TableRow key={i}>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>

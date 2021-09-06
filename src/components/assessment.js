@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import firebaseApp from '../firebaseDbConfig';
+import {
+  getDatabase,
+  ref,
+  onChildAdded,
+  onChildChanged,
+  onChildRemoved,
+  push,
+  set
+} from 'firebase/database';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -95,25 +104,12 @@ const Assessment = () => {
       username: username,
       score: score
     };
-    firebaseApp.child('leaderboard').push(obj, err => {
-      console.log(err);
-      history.push('/leaderboard');
-    });
-    // firebaseApp
-    //   .child('assessment')
-    //   .orderByChild('username')
-    //   .equalTo(username)
-    //   .once('value')
-    //   .then(snapshot => {
-    //     if (snapshot.exists()) {
-    //       let userData = snapshot.val();
-    //       history.push('/leaderboard');
-    //     } else {
-    //       firebaseApp.child('leaderboard').push(obj, err => {
-    //         history.push('/leaderboard');
-    //       });
-    //     }
-    //   });
+    const db = getDatabase();
+    // const db = getDatabase();
+    const postListRef = ref(db, 'assessment');
+    const newPostRef = push(postListRef);
+    set(newPostRef, obj);
+    history.push('/leaderboard');
   };
 
   const onSubmit = () => {
