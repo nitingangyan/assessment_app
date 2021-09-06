@@ -95,21 +95,25 @@ const Assessment = () => {
       username: username,
       score: score
     };
-    firebaseApp
-      .child('assessment')
-      .orderByChild('username')
-      .equalTo(username)
-      .once('value')
-      .then(snapshot => {
-        if (snapshot.exists()) {
-          let userData = snapshot.val();
-          history.push('/leaderboard');
-        } else {
-          firebaseApp.child('assessment').push(obj, err => {
-            history.push('/leaderboard');
-          });
-        }
-      });
+    firebaseApp.child('leaderboard').push(obj, err => {
+      console.log(err);
+      history.push('/leaderboard');
+    });
+    // firebaseApp
+    //   .child('assessment')
+    //   .orderByChild('username')
+    //   .equalTo(username)
+    //   .once('value')
+    //   .then(snapshot => {
+    //     if (snapshot.exists()) {
+    //       let userData = snapshot.val();
+    //       history.push('/leaderboard');
+    //     } else {
+    //       firebaseApp.child('leaderboard').push(obj, err => {
+    //         history.push('/leaderboard');
+    //       });
+    //     }
+    //   });
   };
 
   const onSubmit = () => {
