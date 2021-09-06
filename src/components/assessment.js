@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import firebaseApp from '../firebaseDbConfig';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -89,6 +90,28 @@ const Assessment = () => {
   const [selectedAns, setSelectedAns] = useState(null);
   const [open, setOpen] = React.useState(false);
 
+  const updateAssessment = (username, score) => {
+    let obj = {
+      username: username,
+      score: score
+    };
+    firebaseApp
+      .child('assessment')
+      .orderByChild('username')
+      .equalTo(username)
+      .once('value')
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          let userData = snapshot.val();
+          history.push('/leaderboard');
+        } else {
+          firebaseApp.child('assessment').push(obj, err => {
+            history.push('/leaderboard');
+          });
+        }
+      });
+  };
+
   const onSubmit = () => {
     setDisableEle({ disabled: true });
     setDisableQuestion('disable-element');
@@ -118,9 +141,11 @@ const Assessment = () => {
     }
     setDisableQuestion('');
     if (index == indexes.length - 1) {
+      let username = localStorage.getItem('username');
       let score = (correctAnsCount * 100) / questions.length;
+      score = parseFloat(score.toFixed(2));
       localStorage.setItem('score', score);
-      history.push('/leaderboard');
+      updateAssessment(username, score);
     } else {
       setIndex(index + 1);
     }
