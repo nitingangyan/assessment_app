@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
-import {
-  getDatabase,
-  ref,
-  onChildAdded,
-  onChildChanged,
-  onChildRemoved,
-  push,
-  set
-} from 'firebase/database';
+import db from '../firebaseDbConfig';
+import { ref, push, set } from 'firebase/database';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -104,8 +96,6 @@ const Assessment = () => {
       username: username,
       score: score
     };
-    const db = getDatabase();
-    // const db = getDatabase();
     const postListRef = ref(db, 'assessment');
     const newPostRef = push(postListRef);
     set(newPostRef, obj);

@@ -26,28 +26,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-export default firebaseApp;
-
-// function writeUserData() {
-//   const db = getDatabase();
-//   db.child('assessment').push(
-//     {
-//       username: 'nitin',
-//       score: 80
-//     },
-//     err => {
-//       if (err) console.log(err);
-//       else setCurrentId('');
-//     }
-//   );
-//   // set(ref(db, 'assessment/'), null);
-// }
-// writeUserData();
-// export default firebaseApp;
-// console.log(firebaseApp);
-// var fireDb = firebase.initializeApp(firebaseConfig);
-
-// export default firebaseApp.database().ref();
-
-// export default firebaseApp.database().ref();
+initializeApp(firebaseConfig);
+const db = getDatabase();
+export default db;

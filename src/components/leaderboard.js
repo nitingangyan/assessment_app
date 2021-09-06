@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import db from '../firebaseDbConfig';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -32,7 +33,6 @@ const Leaderboard = () => {
     if (!username) {
       history.push('/login');
     }
-    const db = getDatabase();
     const mostViewedPosts = query(ref(db, 'assessment'), orderByChild('score'));
     let arr = [];
 
@@ -45,7 +45,7 @@ const Leaderboard = () => {
           arr.push(childData);
           // ...
         });
-        setUsers(arr);
+        setUsers(arr.reverse());
       },
       {
         onlyOnce: true
